@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "description": "MySewingMall AI-Enriched Product Schema — 40+ fields per product",
+  "fields": {
+    "identity": {
+      "sku": { "type": "string", "description": "Unique product SKU from MySewingMall" },
+      "brand": { "type": "string", "description": "Manufacturer brand name" },
+      "model_name": { "type": "string", "description": "Full model name/number" },
+      "product_category": { "type": "string", "enum": ["industrial_machine", "home_sewing", "embroidery", "parts", "accessories"] },
+      "product_url": { "type": "string", "description": "Source URL on MySewingMall.com" }
+    },
+    "physical": {
+      "weight_kg": { "type": "number", "description": "Weight in kilograms (standardized)" },
+      "length_cm": { "type": "number", "description": "Length in centimetres (standardized)" },
+      "width_cm": { "type": "number", "description": "Width in centimetres (standardized)" },
+      "height_cm": { "type": "number", "description": "Height in centimetres (standardized)" },
+      "color": { "type": "string" },
+      "form_factor": { "type": "string", "description": "e.g. flatbed, cylinder-bed, post-bed" }
+    },
+    "electrical": {
+      "motor_type": { "type": "string", "description": "e.g. servo, clutch, direct-drive, brushless" },
+      "voltage": { "type": "string", "description": "e.g. 110V, 220V, dual-voltage" },
+      "power_watts": { "type": "number" },
+      "frequency_hz": { "type": "number" },
+      "power_consumption": { "type": "string" }
+    },
+    "mechanical": {
+      "max_speed_spm": { "type": "number", "description": "Max stitches per minute" },
+      "feed_mechanism": { "type": "string", "description": "e.g. drop-feed, differential-feed, walking-foot, needle-feed" },
+      "needle_system": { "type": "string", "description": "e.g. 135x17, 16x231, DBxF5" },
+      "throat_clearance_mm": { "type": "number" },
+      "presser_foot_height_mm": { "type": "number" },
+      "bobbin_system": { "type": "string", "description": "e.g. large capacity, standard, magnetic" },
+      "lubrication": { "type": "string", "description": "e.g. auto-oil, dry-head, manual" }
+    },
+    "capabilities": {
+      "stitch_types": { "type": "array", "items": { "type": "string" } },
+      "stitch_length_mm": { "type": "object", "properties": { "min": { "type": "number" }, "max": { "type": "number" } } },
+      "stitch_width_mm": { "type": "object", "properties": { "min": { "type": "number" }, "max": { "type": "number" } } },
+      "buttonhole_styles": { "type": "number", "description": "Number of buttonhole styles" },
+      "built_in_stitches": { "type": "number" },
+      "thread_count": { "type": "number", "description": "Number of thread spools/needles" }
+    },
+    "compatibility": {
+      "compatible_needles": { "type": "array", "items": { "type": "string" } },
+      "compatible_presser_feet": { "type": "array", "items": { "type": "string" } },
+      "compatible_materials": { "type": "array", "items": { "type": "string" }, "description": "e.g. denim, leather, silk, knit" },
+      "material_thickness_mm": { "type": "object", "properties": { "min": { "type": "number" }, "max": { "type": "number" } } }
+    },
+    "documentation": {
+      "manual_url": { "type": "string", "description": "Official manufacturer manual URL" },
+      "manual_pdf_path": { "type": "string", "description": "Local path to downloaded PDF" },
+      "spec_sheet_url": { "type": "string" }
+    },
+    "metadata": {
+      "source_url": { "type": "string" },
+      "last_scraped": { "type": "string", "format": "datetime" },
+      "last_enriched": { "type": "string", "format": "datetime" },
+      "processing_status": { "type": "string", "enum": ["pending", "extracted", "enriched", "vectorized", "complete"] },
+      "data_version": { "type": "string" },
+      "confidence_score": { "type": "number", "description": "AI confidence 0-1" },
+      "pinecone_id": { "type": "string", "description": "Vector ID in Pinecone" }
+    }
+  },
+  "brands_covered": [
+    "Juki", "Brother", "Janome", "Jack", "Ricoma",
+    "Singer", "Bernina", "Pfaff", "Husqvarna", "Babylock",
+    "Consew", "Reliable", "Tajima"
+  ],
+  "chunking_config": {
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "embedding_model": "text-embedding-ada-002",
+    "vector_dimensions": 1536
+  }
+}
